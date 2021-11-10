@@ -33,52 +33,30 @@ function onDeviceReady() {
 let counter = 0;
 
 function remove(key) {
-    let ele = document.getElementById('todo-list')
-    let toRemove = ele.querySelector(`li[key='${key}']`)
-    if(!toRemove) {
-        console.warn("remove: element not found.")
-        return
-    }
-
-    ele.removeChild(toRemove)
+    $('#todo-list').find(`li[key="${key}"]`).remove()
 }
 
 function add() {
-    console.log("add:")
-    let ele = document.getElementById('todo-list')
-
-    let newTodo = document.createElement('li')
-    newTodo.classList.add('list-group-item')
-    newTodo.classList.add('list-group-item-action')
-    newTodo.classList.add('d-flex')
-    newTodo.classList.add('justify-content-between')
-
     let key = `${counter}`
-    newTodo.setAttribute('key', key)
+    console.log("add:")
 
-    // text input
-    let input = document.createElement(`input`)
-    input.setAttribute('placeholder', `New Item ${counter}`) 
-    newTodo.appendChild(input)
+    $('#todo-list').append(
+        $('<li></li>')
+            .addClass('list-group-item list-group-item-action d-flex justify-content-between')
+            .attr('key', key)
+            .append(
+                $('<input type="text">')
+                    .attr('placeholder', `New Item ${counter}`)
+            )
+            .append(
+                $('<button>-</button>')
+                    .addClass('btn btn-primary bg-theme border-0')
+                    .on('click', () => remove(key))
 
-    // del btn
-    let removeBtn = document.createElement('button')
-    removeBtn.classList.add('btn')
-    removeBtn.classList.add('btn-primary')
-    removeBtn.classList.add('bg-theme')
-    removeBtn.classList.add('border-0')
-
-    let txt = document.createTextNode('-')
-    removeBtn.appendChild(txt)
-
-    removeBtn.addEventListener('click', (e) => {
-        remove(key)
-    })
-    newTodo.appendChild(removeBtn)
-
+            )
+    )
     // final
     counter += 1
-    ele.appendChild(newTodo)
 }
 
 // Init
