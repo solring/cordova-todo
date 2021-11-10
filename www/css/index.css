@@ -20,12 +20,14 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
-.root {
-    --bs-primary: #3632a8;
+:root {
+    --color-primary:        #3632a8;
+    --color-secondary:      #a390c7;
+    --color-secondary-dark: #8e5de8;
 }
 
 .bg-theme {
-    background: linear-gradient(60deg, #3632a8, #8e5de8)
+    background: linear-gradient(60deg, var(--color-primary), #8e5de8)
 }
 
 body {
@@ -55,6 +57,20 @@ body {
     font-size: 20px;
 }
 
-#todo-list input{
-    border: none
+#todo-list li:hover{
+    background-color: #eeeeee;
 }
+
+#todo-list li.completed{
+    background-color: var(--color-secondary);
+}
+
+#todo-list input[type='text']{
+    border: none;
+}
+
+#todo-list input[type='text']:disabled{
+    background-color: var(--color-secondary);
+    color: #4b3d68;
+}
+
